@@ -1,0 +1,26 @@
+var roleHarvester = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
+var roleFighter = require('role.fighter');
+var harvestName = 'harvester'
+var count=1;
+module.exports.loop = function () {
+    count++;
+    if(count>360){count=1;}
+    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], "harvester".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'harvester'}});
+    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], "upgrader", {memory: {role: 'upgrader'}});
+    Game.spawns['Spawn1'].spawnCreep([RANGED_ATTACK,MOVE,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH], "Fighter".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'fighter'}});
+
+
+    for(var name in Game.creeps) {
+        var creep = Game.creeps[name];
+        if(creep.memory.role == 'harvester') {
+            roleHarvester.run(creep);
+        }
+        if(creep.memory.role == 'upgrader') {
+            roleUpgrader.run(creep);
+        }
+        if(creep.memory.role == 'fighter') {
+            roleFighter.run(creep);
+        }
+    }
+}
