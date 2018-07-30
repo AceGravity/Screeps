@@ -7,7 +7,7 @@ var tick=0
 module.exports.loop = function () {
     count++;
     if(count>360){count=1;}
-    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], "harvester".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'harvester'}});
+    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,CARRY,MOVE], "harvester".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'harvester'}});
     if(Object.keys(Game.creeps).length>1){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,CARRY,MOVE], "upgrader", {memory: {role: 'upgrader'}});}
     if(Object.keys(Game.creeps).length>3){Game.spawns['Spawn1'].spawnCreep([RANGED_ATTACK,MOVE,MOVE,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH], "Fighter".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'fighter'}});}
     if(Object.keys(Game.creeps).length>9){
