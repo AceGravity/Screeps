@@ -16,6 +16,7 @@ module.exports.loop = function () {
 
     Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Upgrader", {memory: {role: 'upgrader'}});
     Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Builder", {memory: {role: 'builder'}});
+    if (Game.spawns['Spawn1'].energyCapacity==300 && Game.spawns['Spawn1'].energy==300){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Upgrader" + Game.time, {memory: {role: 'upgrader'}});}
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
