@@ -109,19 +109,23 @@ role.carrier
 
 var roleBuilder = require('role.builder');
 var roleCarrier = {
-//wasd
+
     /** @param {Creep} creep **/
     run: function(creep) {
-
-        creep.room.createConstructionSite(creep.pos,STRUCTURE_ROAD)
         
 	    if(creep.carry.energy < creep.carryCapacity) {
-            creep.moveTo(creep.pos.findClosestByPath(_.filter(Game.creeps, {memory: 'harvester'})).pos);
-            if(creep.harvest(creep.pos.findClosestByPath(FIND_SOURCES)) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.pos.findClosestByPath(FIND_SOURCES), {visualizePathStyle: {stroke: '#ffaa00'}});
+            if (creep.pos.findClosestByPath(_.filter(Game.creeps, {memory: 'harvester'})) != null){
+                creep.moveTo(creep.pos.findClosestByPath(_.filter(Game.creeps, {memory: 'harvester'})).pos);
+                if(creep.harvest(creep.pos.findClosestByPath(FIND_SOURCES)) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.pos.findClosestByPath(FIND_SOURCES), {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
+                creep.moveTo(creep.pos.findClosestByRange(_.filter(Game.creeps, {memory: 'harvester'})).pos);
+            }else{
+	            if(creep.harvest(creep.pos.findClosestByPath(FIND_SOURCES)) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.pos.findClosestByPath(FIND_SOURCES), {visualizePathStyle: {stroke: '#ffaa00'}});
+                }
             }
-            creep.moveTo(creep.pos.findClosestByRange(_.filter(Game.creeps, {memory: 'harvester'})).pos);
-        }
+	    }
         else {
             console.log("test")
             
@@ -140,11 +144,11 @@ var roleCarrier = {
             }
             else{roleBuilder.run(creep);}
         }
+        creep.room.createConstructionSite(creep.pos,STRUCTURE_ROAD)
 	}
 };
 
 module.exports = roleCarrier;
-
 
 
 role.harvester
