@@ -1,0 +1,15 @@
+var roleFighter = {
+
+    /** @param {Creep} creep **/
+    run: function(creep) {
+        var enemie = creep.pos.findClosestByRange(creep.room.find(FIND_HOSTILE_CREEPS));
+        console.log(enemie);
+        console.log(creep.room.find(FIND_HOSTILE_CREEPS).length==0);
+        if(creep.rangedAttack(enemie) == ERR_NOT_IN_RANGE){;
+            creep.moveTo(enemie);
+        }
+        else if(creep.room.find(FIND_HOSTILE_CREEPS).length==0){creep.moveTo(creep.pos.findClosestByRange(_.filter(Game.creeps, {memory: 'fighter'})))}
+    }
+};
+
+module.exports = roleFighter;
