@@ -1,0 +1,34 @@
+var roleHarvester = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
+var roleFighter = require('role.fighter');
+var harvestName = 'harvester'
+var count=1;
+var tick=0
+module.exports.loop = function () {
+    count++;
+    if(count>360){count=1;}
+    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], "harvester".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'harvester'}});
+    Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], "upgrader", {memory: {role: 'upgrader'}});
+    Game.spawns['Spawn1'].spawnCreep([RANGED_ATTACK,MOVE,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH,TOUGH], "Fighter".concat(Math.ceil(count % (Object.keys(Game.creeps).length+4)/4)), {memory: {role: 'fighter'}});
+    var sources = Game.spawns['Spawn1'].room.find(FIND_SOURCES);
+    for (var j = 0; j < sources.length; j++)
+    {
+        var paths = Game.spawns['Spawn1'].pos.findPathTo(sources[j].pos);
+        for (var i = 0; i < paths.length; i++) 
+        {
+            Game.spawns['Spawn1'].room.createConstructionSite(paths[i].x,paths[i].y, STRUCTURE_ROAD);
+        }
+    }
+    for(var name in Game.creeps) {
+        var creep = Game.creeps[name];
+        if(creep.memory.role == 'harvester') {
+            roleHarvester.run(creep);
+        }
+        if(creep.memory.role == 'upgrader') {
+            roleUpgrader.run(creep);
+        }
+        if(creep.memory.role == 'fighter') {
+            roleFighter.run(creep);
+        }
+    }
+}
