@@ -15,7 +15,7 @@ module.exports.loop = function () {
     }
 
     Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Upgrader", {memory: {role: 'upgrader'}});
-    if (Game.spawns['Spawn1'].energyCapacity==300 && Game.spawns['Spawn1'].energy==300){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Upgrader" + Game.time, {memory: {role: 'upgrader'}});}
+    if (Game.spawns['Spawn1'].energyCapacity<=899 && Game.spawns['Spawn1'].energy<=899){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Upgrader" + Game.time, {memory: {role: 'upgrader'}});}
     Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Builder", {memory: {role: 'builder'}});
     Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "builder", {memory: {role: 'builder'}});
 
