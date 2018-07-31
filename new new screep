@@ -15,7 +15,7 @@ module.exports.loop = function () {
         }
     }
 
-    if (Game.spawns['Spawn1'].energyCapacity<=899 && Game.spawns['Spawn1'].energy<=899){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Builder" + Game.time, {memory: {role: 'builder'}});}
+    if (Game.spawns['Spawn1'].energyCapacity<=899 && Game.spawns['Spawn1'].energy>=Game.spawns['Spawn1'].energyCapacity){Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,MOVE,MOVE], "Builder" + Game.time, {memory: {role: 'builder'}});}
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
